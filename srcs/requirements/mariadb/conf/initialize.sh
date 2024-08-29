@@ -6,7 +6,7 @@
 #    By: yamajid <yamajid@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/14 09:54:52 by yamajid           #+#    #+#              #
-#    Updated: 2024/08/29 10:31:11 by yamajid          ###   ########.fr        #
+#    Updated: 2024/08/29 12:19:24 by yamajid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 set -e
 
-max_tries=10
+max_tries=15
 counter=0
 
 service mariadb start
@@ -35,6 +35,8 @@ while ! mysql -u root -e "SELECT 1" > /dev/null 2>&1; do
     fi
     sleep 1
 done
+
+sleep 5
 
 mysqladmin -u root -p${DB_PASS} shutdown
 
