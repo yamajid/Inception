@@ -6,7 +6,7 @@
 #    By: yamajid <yamajid@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/10 15:01:11 by yamajid           #+#    #+#              #
-#    Updated: 2024/08/29 13:21:45 by yamajid          ###   ########.fr        #
+#    Updated: 2024/08/30 14:26:35 by yamajid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,12 @@ fi
 
 sleep 5
 
+wp core download --path=/var/www/html/ --allow-root
+
+wp config create --dbname=$WORDPRESS_DB_NAME --dbuser=$WORDPRESS_DB_USER \
+    --dbhost=$WORDPRESS_DB_HOST  --dbpass=$WORDPRESS_DB_PASSWORD --path=/var/www/html/  --allow-root
+
+
 while mysqladmin ping -h"$WORDPRESS_DB_HOST" --silent;
 do
     sleep 1
@@ -35,10 +41,6 @@ do
     echo "Attempt $counter: Waiting for MariaDB to be ready..."
 done
 
-wp core download --path=/var/www/html/ --allow-root
-
-wp config create --dbname=$WORDPRESS_DB_NAME --dbuser=$WORDPRESS_DB_USER \
-    --dbhost=$WORDPRESS_DB_HOST  --dbpass=$WORDPRESS_DB_PASSWORD --path=/var/www/html/  --allow-root
 
 wp core install --url=$WORDPRESS_URL --title=$WORDPRESS_TITLE \
      --admin_user=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASSWORD \
