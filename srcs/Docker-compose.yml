@@ -10,13 +10,13 @@ services:
       - wp_network
     depends_on:
       - wordpress
+    volumes:
+      - wordpress_data:/var/www/html
   wordpress:
     build:
       context: ./requirements/wordpress
     env_file:
       - .env
-    expose:
-      - "9000"
     volumes:
       - wordpress_data:/var/www/html
     networks:
@@ -28,13 +28,10 @@ services:
       context: ./requirements/mariadb
     env_file:
       - .env
-    expose:
-      - "3306"
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
       - wp_network
-
 
 networks:
   wp_network:
@@ -42,17 +39,6 @@ networks:
 
 volumes:
   wordpress_data:
+    name: wordpress_data
   mariadb_data:
-    # name: wordpress_data
-    # driver: local
-    # driver_opts:
-    #   type: none
-    #   device: /Users/yamajid/Desktop/Inception/data
-    #   o: bind
-
-    # name: mariadb_data
-    # driver: local
-    # driver_opts:
-    #   type: none
-    #   device: /Users/yamajid/Desktop/Inception/db_data
-    #   o: bind
+    name: mariadb_data

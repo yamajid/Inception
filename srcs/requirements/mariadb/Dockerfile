@@ -6,7 +6,7 @@
 #    By: yamajid <yamajid@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/09 21:48:00 by yamajid           #+#    #+#              #
-#    Updated: 2024/08/28 11:05:32 by yamajid          ###   ########.fr        #
+#    Updated: 2024/08/31 22:35:53 by yamajid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,5 @@ RUN apt-get update -y && apt-get upgrade -y && \
 COPY ./conf/initialize.sh /usr/local/bin/initialize.sh
     
 RUN chmod +x /usr/local/bin/initialize.sh
-    
-EXPOSE 3306
 
 CMD ["/bin/sh", "/usr/local/bin/initialize.sh"]
