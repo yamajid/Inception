@@ -8,10 +8,11 @@ services:
       - "443:443"
     networks:
       - wp_network
-    depends_on:
-      - wordpress
     volumes:
       - wordpress_data:/var/www/html
+    restart: always
+    depends_on:
+      - wordpress
   wordpress:
     build:
       context: ./requirements/wordpress
@@ -21,6 +22,7 @@ services:
       - wordpress_data:/var/www/html
     networks:
       - wp_network
+    restart: always
     depends_on:
       - mariadb
   mariadb:
@@ -32,6 +34,7 @@ services:
       - mariadb_data:/var/lib/mysql
     networks:
       - wp_network
+    restart: always
 
 networks:
   wp_network:
