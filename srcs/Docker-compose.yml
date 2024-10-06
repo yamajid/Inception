@@ -9,7 +9,7 @@ services:
     networks:
       - wp_network
     volumes:
-      - wordpress_data:/var/www/html
+      - /home/yamajid/data/wordpress_data:/var/www/html
     restart: always
     depends_on:
       - wordpress
@@ -19,7 +19,7 @@ services:
     env_file:
       - .env
     volumes:
-      - wordpress_data:/var/www/html
+      - /home/yamajid/data/wordpress_data:/var/www/html
     networks:
       - wp_network
     restart: always
@@ -31,7 +31,7 @@ services:
     env_file:
       - .env
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - /home/yamajid/data/mariadb_data:/var/lib/mysql
     networks:
       - wp_network
     restart: always

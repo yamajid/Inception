@@ -6,7 +6,7 @@
 #    By: yamajid <yamajid@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/14 09:54:52 by yamajid           #+#    #+#              #
-#    Updated: 2024/08/29 12:19:24 by yamajid          ###   ########.fr        #
+#    Updated: 2024/09/27 20:51:34 by yamajid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,6 @@
 
 set -e
 
-max_tries=15
-counter=0
 
 service mariadb start
 
@@ -26,6 +24,8 @@ mysql -u root -e "CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '$
 mysql -u root -e "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';"
 mysql -u root -e "FLUSH PRIVILEGES;"
 
+max_tries=15
+counter=0
 
 while ! mysql -u root -e "SELECT 1" > /dev/null 2>&1; do
     counter=$((counter+1))
@@ -38,8 +38,9 @@ done
 
 sleep 5
 
+echo "MariaDB is ready!"
+
 mysqladmin -u root -p${DB_PASS} shutdown
 
-echo "MariaDB is ready!"
 
 exec mysqld_safe --datadir='/var/lib/mysql' --bind-address=0.0.0.0 --port=3306
