@@ -6,7 +6,7 @@
 #    By: yamajid <yamajid@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/14 09:54:52 by yamajid           #+#    #+#              #
-#    Updated: 2024/09/27 20:51:34 by yamajid          ###   ########.fr        #
+#    Updated: 2024/10/10 16:19:27 by yamajid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,3 +44,4 @@ mysqladmin -u root -p${DB_PASS} shutdown
 
 
 exec mysqld_safe --datadir='/var/lib/mysql' --bind-address=0.0.0.0 --port=3306
+

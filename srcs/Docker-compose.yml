@@ -9,7 +9,7 @@ services:
     networks:
       - wp_network
     volumes:
-      - /home/yamajid/data/wordpress_data:/var/www/html
+      - wordpress_data:/var/www/html
     restart: always
     depends_on:
       - wordpress
@@ -18,20 +18,26 @@ services:
       context: ./requirements/wordpress
     env_file:
       - .env
+    expose:
+        - "9000"
     volumes:
-      - /home/yamajid/data/wordpress_data:/var/www/html
+      - wordpress_data:/var/www/html
     networks:
       - wp_network
+
     restart: always
     depends_on:
       - mariadb
+
   mariadb:
-    build:
-      context: ./requirements/mariadb
+    build: ./requirements/mariadb
+    image : mariadb:1.1
     env_file:
       - .env
+    expose:
+      - "3306"
     volumes:
-      - /home/yamajid/data/mariadb_data:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql
     networks:
       - wp_network
     restart: always
@@ -43,5 +49,13 @@ networks:
 volumes:
   wordpress_data:
     name: wordpress_data
+    driver_opts:
+      device: /home/yamajid/data/wordpress_data
+      o: bind
+      type: none
   mariadb_data:
     name: mariadb_data
+    driver_opts:
+      device: /home/yamajid/data/mariadb_data
+      o: bind
+      type: none

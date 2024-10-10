@@ -6,7 +6,7 @@
 #    By: yamajid <yamajid@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/15 15:29:04 by yamajid           #+#    #+#              #
-#    Updated: 2024/09/22 01:15:50 by yamajid          ###   ########.fr        #
+#    Updated: 2024/10/10 16:15:21 by yamajid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,30 +15,32 @@ C-F = docker-compose.yml
 
 all: up
 
-.PHONY: up
+.PHONY: up down status shell-wordpress shell-nginx shell-mariadb clean rmv fclean
 up:
 	$(D-C) -f $(C-F) up --build
-	
-.PHONY: down
+
 down:
 	$(D-C) -f $(C-F) down -v
 
-.PHONY: status
 status:
 	$(D-C) -f $(C-F) ps
 
-.PHONY: shell-wordpress
 shell-wordpress:
 	$(D-C) -f $(C-F) exec wordpress bash
-	
-.PHONY: shell-nginx
+
 shell-nginx:
 	$(D-C) -f $(C-F) exec nginx bash
 
-.PHONY: shell-mariadb
 shell-mariadb:
-	$(D-C) -f $(C-F) exec mariadb bash
+	$(D-C) -f $(C-F) exec  mariadb bash
 
-.PHONY: clean
 clean:
 	$(D-C) -f $(C-F) down --volumes --remove-orphans
+
+
+rmv:
+	rm -rf /home/yamajid/data/mariadb_data/*
+	rm -rf /home/yamajid/data/wordpress_data/*
+
+fclean: rmv
+	docker system prune -a -f
